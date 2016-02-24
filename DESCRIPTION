@@ -1,0 +1,26 @@
+Package: piesonamap
+Type: Package
+Title: draws piecharts on a map
+Version: 0.1.0
+Author: Who wrote it
+Maintainer: Who to complain to <yourfault@somewhere.net>
+Description: More about what it does (maybe more than one line)
+License: What license is it under?
+LazyData: TRUE
+RoxygenNote: 5.0.1
+Depends:
+  R (>= 3.1),
+  ggplot2 (>= 2.0),
+Imports:
+  gtable,
+  ggtree,
+  dplyr,
+  tidyr,
+  maps
+Suggests:
+  dplyr,
+  sp
+
+
+
+
