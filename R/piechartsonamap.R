@@ -97,25 +97,38 @@ addpies <- function(ggmap, piedata, circlesize = 0.1,  legend=TRUE, legendloc = 
   if (legend == TRUE) {
     xminmax <- layer_scales(ggmap)$y$range$range
     yminmax <- layer_scales(ggmap)$x$range$range
+    xmin <- xminmax[[1]]
+    xmax <- xminmax[[2]]
+    ymin <- yminmax[[1]]
+    ymax <- yminmax[[2]]
+    deltax =  (xmax - xmin) / 10
+    deltay =  (ymax - ymin) / 10
 
     if (legendloc == "TL"){
       #top left
-      xloc <- xminmax[[1]] + (xminmax[[2]] - xminmax[[1]] ) / 10
-      yloc <- yminmax[[2]] - (yminmax[[2]] - yminmax[[1]] ) / 10
+
+      xloc1 <- xmin + deltax
+      xloc2 <- xmin + (2 * deltax)
+      yloc1 <- ymax - deltay
+      yloc2 <- ymax - (2* deltay)
+
     } else if(legendloc == "TR") {
       #top right
-      xloc <- xminmax[[2]] - (xminmax[[2]] - xminmax[[1]] ) / 10
-      yloc <- yminmax[[2]] - (yminmax[[2]] - yminmax[[1]] ) / 10
+      xloc1 <- xmax - (2 * deltax)
+      xloc2 <- xmax - deltax
+      yloc1 <- ymax - deltay
+      yloc2 <- ymax - (2* deltay)
     }
 
     firstid <- first(piedata[[1]])
     baseplot <- makepie(piedata[piedata[[1]] == firstid, ] ,trim = FALSE)
     leg1 <- gtable_filter(ggplot_gtable(ggplot_build(baseplot$plot)), "guide-box")
+
     ggmap <- ggmap + annotation_custom(grob = leg1,
-                                 xmin = -77.5,
-                                 xmax = -78.5,
-                                 ymin = 44,
-                                 ymax = 48)
+                                 xmin = xloc1,
+                                 xmax = xloc2,
+                                 ymin = yloc1,
+                                 ymax = yloc2)
   }
   return(ggmap)
 
