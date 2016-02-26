@@ -6,8 +6,8 @@
 #'
 makepie <- function(df, trim=TRUE){
   id   <- unique(df[[1]])
-  lat  <- unique(df[[2]])
-  lon  <- unique(df[[3]])
+  lon  <- unique(df[[2]])
+  lat  <- unique(df[[3]])
 
   if (trim == TRUE) {
     plt <- ggplot(df, aes(x=1, y=value, fill=variable)) +
@@ -46,7 +46,7 @@ piesonmap <- function(map, data, piedata, locationdata,circlesize = 0.1,  legend
   #add the pies
   pies <- by(piedata, piedata[[1]], makepie)  #first column is IDs
   for (pie in pies) {
-    gg <- subview(gg, pie$plot, pie$lat, pie$lon, width = circlesize, height=circlesize)
+    gg <- subview(gg, pie$plot, x=pie$lon, y=pie$lat, width = circlesize, height=circlesize)
   }
 
   #create the legend by creating a plot without stripping the legend
@@ -72,7 +72,7 @@ piesonmap <- function(map, data, piedata, locationdata,circlesize = 0.1,  legend
                                  xmin = -77.5,
                                  xmax = -78.5,
                                  ymin = 44,
-                                 ymax = )
+                                 ymax = 55)
 
   }
   return(gg)
