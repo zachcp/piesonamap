@@ -6,8 +6,8 @@
 #'
 makepie <- function(df, trim=TRUE){
   id   <- unique(df[[1]])
-  lon  <- unique(df[[2]])
-  lat  <- unique(df[[3]])
+  lat  <- unique(df[[2]])
+  lon  <- unique(df[[3]])
 
   if (trim == TRUE) {
     plt <- ggplot(df, aes(x=1, y=value, fill=variable)) +
