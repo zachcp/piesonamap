@@ -22,7 +22,6 @@ makepie <- function(df, trim=TRUE){
     plt <- ggplot(df, aes(x=1, y=value, fill=variable)) +
       geom_bar(stat="identity",width=1) +
       coord_polar(theta="y")
-
   }
 
   return(list(plot = plt,lat=lat,lon=lon,id=id ))
@@ -46,7 +45,7 @@ piesonmap <- function(map, data, piedata, locationdata,circlesize = 0.1,  legend
   #add the pies
   pies <- by(piedata, piedata[[1]], makepie)  #first column is IDs
   for (pie in pies) {
-    gg <- subview(gg, pie$plot, pie$lat, pie$lon, width = circlesize, height=circlesize)
+    gg <- subview(gg, pie$plot, x=pie$lon, y=pie$lat, width = circlesize, height=circlesize)
   }
 
   #create the legend by creating a plot without stripping the legend
@@ -72,7 +71,7 @@ piesonmap <- function(map, data, piedata, locationdata,circlesize = 0.1,  legend
                                  xmin = -77.5,
                                  xmax = -78.5,
                                  ymin = 44,
-                                 ymax = )
+                                 ymax = 55)
 
   }
   return(gg)
